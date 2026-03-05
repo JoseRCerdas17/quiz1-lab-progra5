@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import useApi from "./hooks/useApi";
+
+// Tus compañeros van a crear estos componentes:
+// import SearchBar from "./components/SearchBar";
+// import PokemonCard from "./components/PokemonCard";
+// import PokemonList from "./components/PokemonList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+  const { data, loading, error } = useApi(search);
+
+  const handleSearch = () => {
+    setSearch(query);
+  };
 
   return (
-    <>
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h1>🔴 Pokédex React</h1>
+
+      {/* Barra de búsqueda - Persona 2 la estiliza */}
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input
+          type="text"
+          placeholder="Buscar pokémon por nombre..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        />
+        <button onClick={handleSearch}>Buscar</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      {/* Estados de carga y error */}
+      {loading && <p>⏳ Cargando...</p>}
+      {error && <p style={{ color: "red" }}>❌ {error}</p>}
+
+      {/* Lista de resultados - Personas 3 y 4 integrarán sus componentes aquí */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "20px" }}>
+        {data.map((pokemon) => (
+          <div key={pokemon.id} style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "8px" }}>
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <p><strong>{pokemon.name}</strong></p>
+            <p>Tipos: {pokemon.types.map((t) => t.type.name).join(", ")}</p>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
