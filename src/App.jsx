@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useApi from "./hooks/useApi";
+import PokemonCard from "./components/PokemonCard";
 
 // Tus compañeros van a crear estos componentes:
 // import SearchBar from "./components/SearchBar";
