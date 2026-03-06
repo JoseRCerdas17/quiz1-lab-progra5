@@ -1,10 +1,6 @@
 import { useState } from "react";
-import useApi from "./hooks/useApi";
+import useApi from "./hooks/useAPI";
 
-// Tus compañeros van a crear estos componentes:
-// import SearchBar from "./components/SearchBar";
-// import PokemonCard from "./components/PokemonCard";
-// import PokemonList from "./components/PokemonList";
 
 function App() {
   const [query, setQuery] = useState("");
