@@ -31,3 +31,6 @@ const estilos = {
 };
 
 export default PokemonCard;
+
+
+
