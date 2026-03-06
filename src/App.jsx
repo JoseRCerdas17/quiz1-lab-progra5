@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useApi from "./hooks/useAPI";
+import PokemonCard from "./components/PokemonCard";
 
 
 function App() {
