@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useApi from "./hooks/useAPI";
 import PokemonCard from "./components/PokemonCard";
-
+import Busqueda from "./assets/components/Busqueda";
+import Lista from "./assets/components/Listas";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -16,32 +17,26 @@ function App() {
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1>🔴 Pokédex React</h1>
 
-      {/* Barra de búsqueda - Persona 2 la estiliza */}
-      <div>
-        <input
-          type="text"
-          placeholder="Buscar pokémon por nombre..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        />
-        <button onClick={handleSearch}>Buscar</button>
-      </div>
+      {/* Barra de búsqueda usando tu componente */}
+      <Busqueda
+        nombre={query}
+        setNombre={setQuery}
+        buscarPokemon={handleSearch}
+      />
 
       {/* Estados de carga y error */}
       {loading && <p>⏳ Cargando...</p>}
       {error && <p style={{ color: "red" }}>❌ {error}</p>}
 
-      {/* Lista de resultados - Personas 3 y 4 integrarán sus componentes aquí */}
+      {/* Lista de resultados */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "20px" }}>
         {data.map((pokemon) => (
-          <div key={pokemon.id} style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "8px" }}>
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <p><strong>{pokemon.name}</strong></p>
-            <p>Tipos: {pokemon.types.map((t) => t.type.name).join(", ")}</p>
-          </div>
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
+
+      {/* Tu componente Lista también puede usar PokemonCard internamente */}
+      <Lista pokemon={data} />
     </div>
   );
 }

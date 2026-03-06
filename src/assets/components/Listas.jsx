@@ -1,5 +1,5 @@
-import PokemonCard from "./pokemonCard";
 
+import PokemonCard from "./PokemonCard";
 function Lista({ pokemon }) {
 
   return (
@@ -12,14 +12,9 @@ function Lista({ pokemon }) {
 const estilos = {
   container: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "30px",
-    padding: "20px",
-    minHeight: "200px",
-    background: "rgba(255,255,255,0.05)",
-    borderRadius: "15px"
+    justifyContent: "center"
   }
 };
 
 export default Lista;
+
